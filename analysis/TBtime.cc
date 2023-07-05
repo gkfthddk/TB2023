@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
     std::vector<int> MIDs = {MID, 12};
     MIDs.erase( std::unique( MIDs.begin(), MIDs.end() ), MIDs.end() );
 
-    TBread<TBwaveform> readerWave = TBread<TBwaveform>(std::stoi(runNum), maxEntry, 1, "/Users/yhep/scratch/YUdaq", MIDs);
+    TBread<TBwaveform> readerWave = TBread<TBwaveform>(std::stoi(runNum), maxEntry, 1, "/Users/swkim/DRC/2023_TB_at_CERN/2023_data", MIDs);
     std::cout << "Total # of entry : " << readerWave.GetMaxEvent() << std::endl;
 
     TCanvas* c = new TCanvas("c", "c", 800, 800);

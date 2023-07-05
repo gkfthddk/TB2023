@@ -32,7 +32,7 @@ if args.event :
 else :
 	MCPPMT = ROOT.TBmcppmt('TBwaveform')(RunNumber, 0, 0)
 
-MCPPMT.SetMapping("/Users/yhep/scratch/DQM/TB2023/mapping/mapping_TB2021July_v1.root");
+MCPPMT.SetMapping("/Users/swkim/DRC/2023_TB_at_CERN/TB2023/mapping/mapping_TB2021July_v1.root");
 
 if MaxEvent != -1:
 	MCPPMT.SetMaxEvent(MaxEvent + StartEvent)

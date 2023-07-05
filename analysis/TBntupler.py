@@ -22,7 +22,7 @@ if not os.path.exists(outputPath) :
     os.makedirs(outputPath)
 outFileName = f"ntuple_Run_{rn}_{mode}"
 
-ntupler = ROOT.TBntupler("/Users/yhep/scratch/YUdaq", outputPath, outFileName, rn, args.MaxEntry, args.FileEntry)
+ntupler = ROOT.TBntupler("/Users/swkim/DRC/2023_TB_at_CERN/2023_data", outputPath, outFileName, rn, args.MaxEntry, args.FileEntry)
 if args.doFast :
     ntupler.ntuplizeFastmode()
 else :
