@@ -28,7 +28,7 @@ template <typename T>
 void TBmonit<T>::Loop()
 {
   TBplotengine enginePlot = TBplotengine(fConfig.GetConfig()["Plots"], fRunNum, TButility(), false);
-  TBread<TBwaveform> readerWave = TBread<TBwaveform>(fRunNum, fMaxEvent, fMaxFile, "/Users/yhep/scratch/YUdaq", enginePlot.getMIDtoLoad());
+  TBread<TBwaveform> readerWave = TBread<TBwaveform>(fRunNum, fMaxEvent, fMaxFile, "/eos/user/s/sungwon/public/TB2023_data", enginePlot.getMIDtoLoad());
   // TBread<TBwaveform> readerWave = TBread<TBwaveform>(fRunNum, fMaxEvent, fMaxFile, "/Users/khwang/scratch/TB2023July/sample", enginePlot.getMIDtoLoad());
   // TBread<TBwaveform> readerWave = TBread<TBwaveform>(fRunNum, fMaxEvent, fMaxFile, "/Users/swkim/DRC/2022_TB_at_CERN/data_sample", enginePlot.getMIDtoLoad());
 
@@ -71,7 +71,7 @@ template <typename T>
 void TBmonit<T>::LoopFast()
 {
   TBfastengine enginePlot = TBfastengine(fConfig.GetConfig()["Plots"], fRunNum, TButility());
-  TBread<TBfastmode> readerFast = TBread<TBfastmode>(fRunNum, fMaxEvent, fMaxFile, "/Users/yhep/scratch/YUdaq", enginePlot.getMIDtoLoad());
+  TBread<TBfastmode> readerFast = TBread<TBfastmode>(fRunNum, fMaxEvent, fMaxFile, "/eos/user/s/sungwon/public/TB2023_data", enginePlot.getMIDtoLoad());
   // TBread<TBfastmode> readerFast = TBread<TBfastmode>(fRunNum, fMaxEvent, fMaxFile, "/Users/khwang/scratch/TB2023July/sample", enginePlot.getMIDtoLoad());
   // TBread<TBfastmode> readerFast = TBread<TBfastmode>(fRunNum, fMaxEvent, "/Users/swkim/DRC/2022_TB_at_CERN/data_sample", enginePlot.getMIDtoLoad());
 

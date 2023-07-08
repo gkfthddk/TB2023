@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
     std::vector<int> MIDs = {MID};
     if (MID != 12) MIDs.push_back(12);
 
-    TBread<TBwaveform> readerWave = TBread<TBwaveform>(std::stoi(runNum), maxEntry, 1, "/Users/yhep/scratch/YUdaq", MIDs);
+    TBread<TBwaveform> readerWave = TBread<TBwaveform>(std::stoi(runNum), maxEntry, 1, "/eos/user/s/sungwon/public/TB2023_data", MIDs);
     std::cout << "Total # of entry : " << readerWave.GetMaxEvent() << std::endl;
 
     TCanvas* c = new TCanvas("c", "c", 800, 800);
