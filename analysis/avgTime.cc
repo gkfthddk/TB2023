@@ -13,11 +13,14 @@
 #include "TFile.h"
 #include "TH1.h"
 
-// Run the script by
-// ./TBanalysis_ex <run number> <max entry>
-// For example, ./TBanalysis_ex 4234 -1
-// <max entry> == -1 means run all the entries
-// This example uses external pedestal
+// Compile this script by
+// ./compile.sh avgTime
+
+// Run the compiled script by
+// ./avgTime <run number> <max entry>
+// For example, ./avgTime 4234 -1
+// <max entry> == -1 means run over all the entries
+// This example uses Run-pedestal
 
 int main(int argc, char** argv) {
     gStyle->SetOptFit(1);
@@ -226,7 +229,7 @@ int main(int argc, char** argv) {
     }
 
     // Save the outputs
-    std::string outFile = "./AvgTimeStruc_Run_" + std::to_string(runNum) + ".root";
+    std::string outFile = "./AvgTimeStruc/AvgTimeStruc_Run_" + std::to_string(runNum) + ".root";
     TFile* outputRoot = new TFile(outFile.c_str(), "RECREATE");
     outputRoot->cd();
 

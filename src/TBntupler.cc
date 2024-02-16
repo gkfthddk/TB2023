@@ -1,9 +1,14 @@
 #include "TBntupler.h"
 
-TBntupler::TBntupler(std::string fInPath_, std::string fOutPath_, std::string fOutFileName_, int fRunNumber_, int fMaxEntry_, int fEntryPerFile_)
+// TBntupler::TBntupler(std::string fInPath_, std::string fOutPath_, std::string fOutFileName_, int fRunNumber_, int fMaxEntry_, int fEntryPerFile_)
+TBntupler::TBntupler(std::string fInPath_, std::string fOutPath_, std::string fOutFileName_, int fRunNumber_, int fMaxEntry_, int fEntryPerFile_, std::vector<int> MIDlist)
     : fInPath(fInPath_), fOutPath(fOutPath_), fOutFileName(fOutFileName_), fRunNumber(fRunNumber_), fMaxEntry(fMaxEntry_), fEntryPerFile(fEntryPerFile_)
 {
-    fMIDtoUse = {1, 2, 3, 4, 8, 9, 12};
+    //fMIDtoUse = {1, 2, 3, 4, 8, 9, 12};
+    for (int mid : MIDlist) {
+        std::cout << "MID to use : " << mid << std::endl;
+    }
+    fMIDtoUse = MIDlist;
 }
 
 void TBntupler::ntuplizeWaveform()

@@ -71,6 +71,24 @@ float GetPeak(std::vector<short> waveform, int startBin, int endBin)
   return (*std::max_element(pedCorrectedWave.begin() + startBin, pedCorrectedWave.begin() + endBin));
 }
 
+float GetIntWithPed(std::vector<short> waveform, int startBin, int endBin, float ped)
+{  
+  std::vector<float> pedCorrectedWave;
+  for (int i = 0; i < waveform.size(); i++)
+    pedCorrectedWave.push_back(ped - waveform.at(i));
+
+  return (std::accumulate(pedCorrectedWave.begin() + startBin, pedCorrectedWave.begin() + endBin, 0.));
+}
+
+float GetPeakWithPed(std::vector<short> waveform, int startBin, int endBin, float ped)
+{  
+  std::vector<float> pedCorrectedWave;
+  for (int i = 0; i < waveform.size(); i++)
+    pedCorrectedWave.push_back(ped - waveform.at(i));
+
+  return (*std::max_element(pedCorrectedWave.begin() + startBin, pedCorrectedWave.begin() + endBin));
+}
+
 std::map<std::string, std::vector<int>> getModuleConfigMap() {
     std::map<std::string, std::vector<int>> map_btw_MIDCH_and_Name;
 

@@ -16,7 +16,8 @@
 class TBntupler
 {
 public:
-  TBntupler(std::string fInPath_, std::string fOutPath_, std::string fOutFileName_, int fRunNumber_, int fMaxEntry_, int fEntryPerFile_);
+  TBntupler(std::string fInPath_, std::string fOutPath_, std::string fOutFileName_, int fRunNumber_, int fMaxEntry_, int fEntryPerFile_, std::vector<int> MIDlist);
+  // TBntupler(std::string fInPath_, std::string fOutPath_, std::string fOutFileName_, int fRunNumber_, int fMaxEntry_, int fEntryPerFile_);
   // ~TBntupler() { delete fOutFile; }
   ~TBntupler() {}
 
