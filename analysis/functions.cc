@@ -4,6 +4,26 @@
 #include <cmath>
 #include <numeric>
 
+#include "TChain.h"
+#include "TH2.h"
+
+TChain* loadNtuple(int runNum) {
+    TChain* evtChain = new TChain("event");
+    for (int fn = 0; fn < 50; fn++) {
+        std::string fileName = "ntuple_Run_" + std::to_string(runNum) + "_Wave_" + std::to_string(fn) + ".root";
+        std::string filePath = "/gatbawi/dream/TB2023/2023_DRC_TB_ntuple/Run_"  + std::to_string(runNum) + "/Run_" + std::to_string(runNum) + "_Wave/"+ fileName;
+        if ( !access(filePath.c_str(), F_OK) ){
+            std::cout << fn << " Ntuple file added to TChain : " << filePath << std::endl;
+            evtChain->Add(filePath.c_str());
+        }
+    }
+    return evtChain;
+}
+
+TH2F* loadPed(int runNum) {
+  return (TH2F*) ( TFile::Open(("/gatbawi/dream/TB2023/2023_DRC_TB_analysis/ped/Run_" + std::to_string(runNum) +"_pedestal.root").c_str()) )->Get("pedestal");
+}
+
 float getPed(std::vector<short> waveform) {
   return std::accumulate( waveform.begin() + 1, waveform.begin() + 101, 0.) / 100.;
 }

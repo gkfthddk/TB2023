@@ -1,6 +1,6 @@
 #! /bin/bash
 
-source envset_centos.sh
+source envset.sh
 mkdir build install
 cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=../install 
