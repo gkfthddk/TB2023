@@ -33,6 +33,40 @@ int main(int argc, char** argv) {
     int runNum = std::stoi(argv[1]);
     int maxEntry = std::stoi(argv[2]);
 
+    // PID selection criteria
+    float Cut_C_counter_1 = 100.;
+    float Cut_C_counter_2 = 80.;
+
+    int c_counter1_range[2] = {390,660};
+    int c_counter2_range[2] = {230,420};
+
+    int c_3d_mid_range[2] = {130,410};
+    int c_3d_w1_range[2] = {130,354};
+    int c_3d_w2_range[2] = {130,358};
+    int c_3d_w3_range[2] = {140,354};
+    int s_3d_mid_range[2] = {130,427};
+    int s_3d_w1_range[2] = {130,354};
+    int s_3d_w2_range[2] = {130,358};
+    int s_3d_w3_range[2] = {140,354};
+
+    int c_hs_w_range[2] = {126,322};
+    int c_hs_1_range[2] = {139,371};
+    int c_hs_2_range[2] = {145,327};
+    int c_hs_3_range[2] = {141,338};
+    int s_hs_w_range[2] = {139,356};
+    int s_hs_1_range[2] = {152,366};
+    int s_hs_2_range[2] = {155,345};
+    int s_hs_3_range[2] = {151,365};
+
+    int c_l_1_range[2] = {150,353};
+    int c_l_2_range[2] = {214,350};
+    int c_l_3_range[2] = {140,335};
+    int c_l_4_range[2] = {148,319};
+    int s_l_1_range[2] = {160,377};
+    int s_l_2_range[2] = {214,428};
+    int s_l_3_range[2] = {156,370};
+    int s_l_4_range[2] = {155,339};
+
     // Load mapping
     auto map = getModuleConfigMap();
 
@@ -150,10 +184,6 @@ int main(int argc, char** argv) {
         std::cout << "Will process maximum " << std::to_string(totalEntry) << " events" << std::endl;
     }
 
-    // PID selection criteria
-    float Cut_C_counter_1 = 100.;
-    float Cut_C_counter_2 = 80.;
-
     // Evt Loop start
     for (int iEvt = 0; iEvt < totalEntry; iEvt++) {
         printProgress(iEvt + 1, totalEntry); // Print progress bar
@@ -254,76 +284,79 @@ int main(int argc, char** argv) {
         float Ped_L2_S     = 0.f;
         float Ped_L3_S     = 0.f;
         float Ped_L4_S     = 0.f;
-        for(int bin = 1; bin < 101; bin++) {
-            Ped_C_counter_1 += (float) (Wave_C_counter.at(0)[bin] / 100.);
-            Ped_C_counter_2 += (float) (Wave_C_counter.at(1)[bin] / 100.);
-            Ped_3D_mid_C += (float) (Wave_3D_C.at(0)[bin] / 100.);      
-            Ped_3D_W1_C  += (float) (Wave_3D_C.at(1)[bin] / 100.);
-            Ped_3D_W2_C  += (float) (Wave_3D_C.at(2)[bin] / 100.);
-            Ped_3D_W3_C  += (float) (Wave_3D_C.at(3)[bin] / 100.);
-            Ped_HW_C     += (float) (Wave_HeatSink_C.at(0)[bin] / 100.);
-            Ped_H1_C     += (float) (Wave_HeatSink_C.at(1)[bin] / 100.);
-            Ped_H2_C     += (float) (Wave_HeatSink_C.at(2)[bin] / 100.);
-            Ped_H3_C     += (float) (Wave_HeatSink_C.at(3)[bin] / 100.);
-            Ped_L1_C     += (float) (Wave_Lego_C.at(0)[bin] / 100.);
-            Ped_L2_C     += (float) (Wave_Lego_C.at(1)[bin] / 100.);
-            Ped_L3_C     += (float) (Wave_Lego_C.at(2)[bin] / 100.);
-            Ped_L4_C     += (float) (Wave_Lego_C.at(3)[bin] / 100.);
-            Ped_3D_mid_S += (float) (Wave_3D_S.at(0)[bin] / 100.);      
-            Ped_3D_W1_S  += (float) (Wave_3D_S.at(1)[bin] / 100.);
-            Ped_3D_W2_S  += (float) (Wave_3D_S.at(2)[bin] / 100.);
-            Ped_3D_W3_S  += (float) (Wave_3D_S.at(3)[bin] / 100.);
-            Ped_HW_S     += (float) (Wave_HeatSink_S.at(0)[bin] / 100.);
-            Ped_H1_S     += (float) (Wave_HeatSink_S.at(1)[bin] / 100.);
-            Ped_H2_S     += (float) (Wave_HeatSink_S.at(2)[bin] / 100.);
-            Ped_H3_S     += (float) (Wave_HeatSink_S.at(3)[bin] / 100.);
-            Ped_L1_S     += (float) (Wave_Lego_S.at(0)[bin] / 100.);
-            Ped_L2_S     += (float) (Wave_Lego_S.at(1)[bin] / 100.);
-            Ped_L3_S     += (float) (Wave_Lego_S.at(2)[bin] / 100.);
-            Ped_L4_S     += (float) (Wave_Lego_S.at(3)[bin] / 100.);
+        float ped_width=112.;
+        for(int bin = 1; bin < ped_width+1; bin++) {
+            Ped_C_counter_1 += (float) (Wave_C_counter.at(0)[bin] / ped_width);
+            Ped_C_counter_2 += (float) (Wave_C_counter.at(1)[bin] / ped_width);
+            Ped_3D_mid_C += (float) (Wave_3D_C.at(0)[bin] / ped_width);      
+            Ped_3D_W1_C  += (float) (Wave_3D_C.at(1)[bin] / ped_width);
+            Ped_3D_W2_C  += (float) (Wave_3D_C.at(2)[bin] / ped_width);
+            Ped_3D_W3_C  += (float) (Wave_3D_C.at(3)[bin] / ped_width);
+            Ped_HW_C     += (float) (Wave_HeatSink_C.at(0)[bin] / ped_width);
+            Ped_H1_C     += (float) (Wave_HeatSink_C.at(1)[bin] / ped_width);
+            Ped_H2_C     += (float) (Wave_HeatSink_C.at(2)[bin] / ped_width);
+            Ped_H3_C     += (float) (Wave_HeatSink_C.at(3)[bin] / ped_width);
+            Ped_L1_C     += (float) (Wave_Lego_C.at(0)[bin] / ped_width);
+            Ped_L2_C     += (float) (Wave_Lego_C.at(1)[bin] / ped_width);
+            Ped_L3_C     += (float) (Wave_Lego_C.at(2)[bin] / ped_width);
+            Ped_L4_C     += (float) (Wave_Lego_C.at(3)[bin] / ped_width);
+            Ped_3D_mid_S += (float) (Wave_3D_S.at(0)[bin] / ped_width);      
+            Ped_3D_W1_S  += (float) (Wave_3D_S.at(1)[bin] / ped_width);
+            Ped_3D_W2_S  += (float) (Wave_3D_S.at(2)[bin] / ped_width);
+            Ped_3D_W3_S  += (float) (Wave_3D_S.at(3)[bin] / ped_width);
+            Ped_HW_S     += (float) (Wave_HeatSink_S.at(0)[bin] / ped_width);
+            Ped_H1_S     += (float) (Wave_HeatSink_S.at(1)[bin] / ped_width);
+            Ped_H2_S     += (float) (Wave_HeatSink_S.at(2)[bin] / ped_width);
+            Ped_H3_S     += (float) (Wave_HeatSink_S.at(3)[bin] / ped_width);
+            Ped_L1_S     += (float) (Wave_Lego_S.at(0)[bin] / ped_width);
+            Ped_L2_S     += (float) (Wave_Lego_S.at(1)[bin] / ped_width);
+            Ped_L3_S     += (float) (Wave_Lego_S.at(2)[bin] / ped_width);
+            Ped_L4_S     += (float) (Wave_Lego_S.at(3)[bin] / ped_width);
         }
-
         // PID uses "Peak ADC count"!!
         // GetPeakWithPed(waveform, peak range start, peak range end, pedestal value)
         // this function returns PeakADC count of provided waveform
         // searched within provided peak range and pedestal
-        // Here we use EvtPed to calculate PeakADC        
-        float PeakADC_C_counter_1 = GetPeakWithPed(Wave_C_counter.at(0), 390, 660, Ped_C_counter_1);
-        float PeakADC_C_counter_2 = GetPeakWithPed(Wave_C_counter.at(1), 230, 450, Ped_C_counter_2);
+        // Here we use EvtPed to calculate PeakADC
+
+        float PeakADC_C_counter_1 = GetPeakWithPed(Wave_C_counter.at(0), c_counter1_range[0], c_counter1_range[1], Ped_C_counter_1);
+        float PeakADC_C_counter_2 = GetPeakWithPed(Wave_C_counter.at(1), c_counter2_range[0], c_counter2_range[1], Ped_C_counter_2);
         
         // Get "Integrated ADC count"
         // GetIntWithPed(waveform, integral range start, integral range end, pedestal value)
         // this function retuns IntADC count of provided waveform
         // integrated within [start, end), with provided pedestal value
-        float IntADC_3D_mid_C = GetIntWithPed(Wave_3D_C.at(0), 140, 270, Ped_3D_mid_C);
-        float IntADC_3D_W1_C  = GetIntWithPed(Wave_3D_C.at(1), 130, 270, Ped_3D_W1_C );
-        float IntADC_3D_W2_C  = GetIntWithPed(Wave_3D_C.at(2), 150, 260, Ped_3D_W2_C );
-        float IntADC_3D_W3_C  = GetIntWithPed(Wave_3D_C.at(3), 140, 250, Ped_3D_W3_C );
+        
+        
+        float IntADC_3D_mid_C = GetIntWithPed(Wave_3D_C.at(0), c_3d_mid_range[0], c_3d_mid_range[1], Ped_3D_mid_C);
+        float IntADC_3D_W1_C  = GetIntWithPed(Wave_3D_C.at(1), c_3d_w1_range[0], c_3d_w1_range[1], Ped_3D_W1_C );
+        float IntADC_3D_W2_C  = GetIntWithPed(Wave_3D_C.at(2), c_3d_w2_range[0], c_3d_w2_range[1], Ped_3D_W2_C );
+        float IntADC_3D_W3_C  = GetIntWithPed(Wave_3D_C.at(3), c_3d_w3_range[0], c_3d_w3_range[1], Ped_3D_W3_C );
 
-        float IntADC_3D_mid_S = GetIntWithPed(Wave_3D_S.at(0), 140, 320, Ped_3D_mid_S);
-        float IntADC_3D_W1_S  = GetIntWithPed(Wave_3D_S.at(1), 150, 320, Ped_3D_W1_S );
-        float IntADC_3D_W2_S  = GetIntWithPed(Wave_3D_S.at(2), 160, 300, Ped_3D_W2_S );
-        float IntADC_3D_W3_S  = GetIntWithPed(Wave_3D_S.at(3), 150, 300, Ped_3D_W3_S );
+        float IntADC_3D_mid_S = GetIntWithPed(Wave_3D_S.at(0), s_3d_mid_range[0], s_3d_mid_range[1], Ped_3D_mid_S);
+        float IntADC_3D_W1_S  = GetIntWithPed(Wave_3D_S.at(1), s_3d_w1_range[0], s_3d_w1_range[1], Ped_3D_W1_S );
+        float IntADC_3D_W2_S  = GetIntWithPed(Wave_3D_S.at(2), s_3d_w2_range[0], s_3d_w2_range[1], Ped_3D_W2_S );
+        float IntADC_3D_W3_S  = GetIntWithPed(Wave_3D_S.at(3), s_3d_w3_range[0], s_3d_w3_range[1], Ped_3D_W3_S );
 
-        float IntADC_HS_W_C  = GetIntWithPed(Wave_HeatSink_C.at(0), 130, 280, Ped_HW_C);
-        float IntADC_HS_1_C  = GetIntWithPed(Wave_HeatSink_C.at(1), 150, 300, Ped_H1_C);
-        float IntADC_HS_2_C  = GetIntWithPed(Wave_HeatSink_C.at(2), 145, 300, Ped_H2_C);
-        float IntADC_HS_3_C  = GetIntWithPed(Wave_HeatSink_C.at(3), 140, 290, Ped_H3_C);
+        float IntADC_HS_W_C  = GetIntWithPed(Wave_HeatSink_C.at(0), c_hs_w_range[0], c_hs_w_range[1], Ped_HW_C);
+        float IntADC_HS_1_C  = GetIntWithPed(Wave_HeatSink_C.at(1), c_hs_1_range[0], c_hs_1_range[1], Ped_H1_C);
+        float IntADC_HS_2_C  = GetIntWithPed(Wave_HeatSink_C.at(2), c_hs_2_range[0], c_hs_2_range[1], Ped_H2_C);
+        float IntADC_HS_3_C  = GetIntWithPed(Wave_HeatSink_C.at(3), c_hs_3_range[0], c_hs_3_range[1], Ped_H3_C);
 
-        float IntADC_HS_W_S  = GetIntWithPed(Wave_HeatSink_S.at(0), 140, 330, Ped_HW_S);
-        float IntADC_HS_1_S  = GetIntWithPed(Wave_HeatSink_S.at(1), 160, 340, Ped_H1_S);
-        float IntADC_HS_2_S  = GetIntWithPed(Wave_HeatSink_S.at(2), 155, 335, Ped_H2_S);
-        float IntADC_HS_3_S  = GetIntWithPed(Wave_HeatSink_S.at(3), 155, 330, Ped_H3_S);
+        float IntADC_HS_W_S  = GetIntWithPed(Wave_HeatSink_S.at(0), s_hs_w_range[0], s_hs_w_range[1], Ped_HW_S);
+        float IntADC_HS_1_S  = GetIntWithPed(Wave_HeatSink_S.at(1), s_hs_1_range[0], s_hs_1_range[1], Ped_H1_S);
+        float IntADC_HS_2_S  = GetIntWithPed(Wave_HeatSink_S.at(2), s_hs_2_range[0], s_hs_2_range[1], Ped_H2_S);
+        float IntADC_HS_3_S  = GetIntWithPed(Wave_HeatSink_S.at(3), s_hs_3_range[0], s_hs_3_range[1], Ped_H3_S);
 
-        float IntADC_L_1_C  = GetIntWithPed(Wave_Lego_C.at(0), 150, 330, Ped_L1_C);
-        float IntADC_L_2_C  = GetIntWithPed(Wave_Lego_C.at(1), 210, 350, Ped_L2_C);
-        float IntADC_L_3_C  = GetIntWithPed(Wave_Lego_C.at(2), 140, 300, Ped_L3_C);
-        float IntADC_L_4_C  = GetIntWithPed(Wave_Lego_C.at(3), 150, 290, Ped_L4_C);
+        float IntADC_L_1_C  = GetIntWithPed(Wave_Lego_C.at(0), c_l_1_range[0], c_l_1_range[1], Ped_L1_C);
+        float IntADC_L_2_C  = GetIntWithPed(Wave_Lego_C.at(1), c_l_2_range[0], c_l_2_range[1], Ped_L2_C);
+        float IntADC_L_3_C  = GetIntWithPed(Wave_Lego_C.at(2), c_l_3_range[0], c_l_3_range[1], Ped_L3_C);
+        float IntADC_L_4_C  = GetIntWithPed(Wave_Lego_C.at(3), c_l_4_range[0], c_l_4_range[1], Ped_L4_C);
 
-        float IntADC_L_1_S  = GetIntWithPed(Wave_Lego_S.at(0), 170, 360, Ped_L1_S);
-        float IntADC_L_2_S  = GetIntWithPed(Wave_Lego_S.at(1), 215, 410, Ped_L2_S);
-        float IntADC_L_3_S  = GetIntWithPed(Wave_Lego_S.at(2), 160, 340, Ped_L3_S);
-        float IntADC_L_4_S  = GetIntWithPed(Wave_Lego_S.at(3), 155, 340, Ped_L4_S);
+        float IntADC_L_1_S  = GetIntWithPed(Wave_Lego_S.at(0), s_l_1_range[0], s_l_1_range[1], Ped_L1_S);
+        float IntADC_L_2_S  = GetIntWithPed(Wave_Lego_S.at(1), s_l_2_range[0], s_l_2_range[1], Ped_L2_S);
+        float IntADC_L_3_S  = GetIntWithPed(Wave_Lego_S.at(2), s_l_3_range[0], s_l_3_range[1], Ped_L3_S);
+        float IntADC_L_4_S  = GetIntWithPed(Wave_Lego_S.at(3), s_l_4_range[0], s_l_4_range[1], Ped_L4_S);
 
         // Here we fill IntADC histograms before PID selection        
         Hist_C_counter_1_PeakADC->Fill(PeakADC_C_counter_1);
